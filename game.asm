@@ -27,3 +27,5 @@ INCLUDE Irvine32.inc
     
     ; Previous positions for smooth redraw
     prevTailX BYTE 0FFh             ; Initialize to invalid value
+prevTailY BYTE 0FFh
+
