@@ -1,2 +1,1 @@
-# Contest-2-assembly
-Contest 2 for Assembly class
+This is a code for our assembly class. We decided to go with a snake game. The snake eats the apple and gets bigger.
