@@ -79,3 +79,24 @@ main PROC
         call Crlf
         mov edx, OFFSET restartMsg
         call WriteString
+
+WAIT_KEY:
+            call ReadChar
+            cmp al, 'r'
+            je RESTART
+            cmp al, 'R'
+            je RESTART
+            cmp al, 'q'
+            je EXIT_GAME
+            cmp al, 'Q'
+            je EXIT_GAME
+            jmp WAIT_KEY
+        
+        RESTART:
+            call InitializeGame
+            jmp MAIN_LOOP
+    
+    EXIT_GAME:
+        call Clrscr
+        exit
+main ENDP
