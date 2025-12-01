@@ -50,3 +50,32 @@ prevTailY BYTE 0FFh
     
 .code
 main PROC
+
+
+ call Randomize
+    call InitializeGame
+    
+    MAIN_LOOP:
+        call CheckInput
+        call UpdateGame
+        call DrawGame
+        
+        cmp gameOver, 1
+        je GAME_OVER_SCREEN
+        
+        mov eax, gameSpeed
+        call Delay
+        jmp MAIN_LOOP
+    
+    GAME_OVER_SCREEN:
+        call Clrscr
+        mov dh, 10
+        mov dl, 20
+        call Gotoxy
+        mov edx, OFFSET gameOverMsg
+        call WriteString
+        mov eax, score
+        call WriteDec
+        call Crlf
+        mov edx, OFFSET restartMsg
+        call WriteString
