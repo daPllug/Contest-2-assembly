@@ -29,3 +29,24 @@ INCLUDE Irvine32.inc
     prevTailX BYTE 0FFh             ; Initialize to invalid value
 prevTailY BYTE 0FFh
 
+; Sandwatch animation frame
+    sandwatchFrame DWORD 0
+    sandwatchChars BYTE "|/-\", 0
+    
+    ; Messages
+    titleMsg BYTE "=== SNAKE GAME ===", 0
+    scoreLabel BYTE "Score: ", 0
+    lengthLabel BYTE "Length: ", 0
+    gameOverMsg BYTE "GAME OVER! Final Score: ", 0
+    restartMsg BYTE "Press R to restart, Q to quit", 0
+    controlsMsg BYTE "Arrow Keys: Move | ESC: Pause", 0
+    
+    ; Colors (Irvine32 color constants)
+    SNAKE_COLOR = (green * 16) + white
+    GREEN_APPLE_COLOR = (green * 16) + green
+    RED_APPLE_COLOR = (red * 16) + red
+    WALL_COLOR = (gray * 16) + white
+    TEXT_COLOR = (black * 16) + white
+    
+.code
+main PROC
