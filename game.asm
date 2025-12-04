@@ -7,17 +7,16 @@ INCLUDE Irvine32.inc
     GAME_START_X = 5
     GAME_START_Y = 3
     
-    ; Snake structure (max 200 segments)
     snakeX BYTE 200 DUP(0)
     snakeY BYTE 200 DUP(0)
     snakeLength DWORD 3
-    direction BYTE 3              ; 0=up, 1=down, 2=left, 3=right
+    direction BYTE 3         
     nextDirection BYTE 3
     
     ; Food/apples
     appleX BYTE 0
     appleY BYTE 0
-    appleType BYTE 0              ; 0=green, 1=red
+    appleType BYTE 0        ; 0=green, 1=red
     appleValue DWORD 1            ; Points for apple
     
     ; Game state
