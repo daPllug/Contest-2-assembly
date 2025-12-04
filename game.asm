@@ -29,11 +29,11 @@ INCLUDE Irvine32.inc
     prevTailX BYTE 0FFh             ; Initialize to invalid value
     prevTailY BYTE 0FFh
     
-    ; Sandwatch animation frame
+    ; sandwatch like animation
     sandwatchFrame DWORD 0
     sandwatchChars BYTE "|/-\", 0
     
-    ; Messages
+    
     titleMsg BYTE "SNAKE GAME", 0
     scoreLabel BYTE "Score: ", 0
     lengthLabel BYTE "Length: ", 0
@@ -41,7 +41,7 @@ INCLUDE Irvine32.inc
     restartMsg BYTE "R=restart, Q=quit", 0
     controlsMsg BYTE "Arrows move, ESC pause", 0
     
-    ; Colors (Irvine32 color constants)
+    ; Colors from Irvine32
     SNAKE_COLOR = (black * 16) + white
     GREEN_APPLE_COLOR = (green * 16) + green
     RED_APPLE_COLOR = (red * 16) + red
@@ -99,7 +99,7 @@ main PROC
         exit
 main ENDP
 
-; initialize game state
+;initialize the game state
 InitializeGame PROC
     ; Initialize snake in center
     mov snakeLength, 3
@@ -118,7 +118,7 @@ InitializeGame PROC
     mov score, 0
     mov gameOver, 0
     mov gameSpeed, 80
-    mov prevTailX, 0FFh             ; Reset previous tail
+    mov prevTailX, 0FFh             ; Reset tail
     mov prevTailY, 0FFh
     
     ; Generate first apple
@@ -265,7 +265,7 @@ CheckInput PROC
     call ReadKey
     jz NO_INPUT                    ; No key pressed
     
-    ; Check for ESC (pause)
+    ; Check for ESC
     cmp al, 27
     je PAUSE_GAME
     
@@ -273,18 +273,18 @@ CheckInput PROC
     cmp al, 0
     jne NO_INPUT                   ; Not extended key
     
-    cmp ah, 72                     ; Up arrow
+    cmp ah, 72                ; Up arrow
     je UP_KEY
-    cmp ah, 80                     ; Down arrow
+    cmp ah, 80            ; Down arrow
     je DOWN_KEY
-    cmp ah, 75                     ; Left arrow
+    cmp ah, 75               ; Left arrow
     je LEFT_KEY
-    cmp ah, 77                     ; Right arrow
+    cmp ah, 77             ; Right arrow
     je RIGHT_KEY
     jmp NO_INPUT
     
     UP_KEY:
-        cmp direction, 1           ; Can't reverse direction
+        cmp direction, 1     
         je NO_INPUT
         mov nextDirection, 0
         jmp NO_INPUT
@@ -308,7 +308,7 @@ CheckInput PROC
         jmp NO_INPUT
     
     PAUSE_GAME:
-        ; Simple pause - wait for key press
+
         mov dh, 12
         mov dl, 20
         call Gotoxy
@@ -339,7 +339,7 @@ CheckInput PROC
         ret
 CheckInput ENDP
 
-; update snake and game state
+; updating the snake and game state
 UpdateGame PROC
     ; Update direction
     mov al, nextDirection
@@ -353,7 +353,6 @@ UpdateGame PROC
     mov al, snakeY[esi]
     mov prevTailY, al
     
-    ; Move snake body (shift all segments)
     mov esi, snakeLength
     dec esi
     SHIFT_LOOP:
@@ -507,7 +506,7 @@ GenerateApple PROC
         call RandomRange
         cmp eax, 3
         jl RED_APPLE
-        mov appleType, 0            ; Green
+        mov appleType, 0       ; Green
         jmp APPLE_DONE
         RED_APPLE:
         mov appleType, 1            ; Red
@@ -634,7 +633,7 @@ UpdateUI PROC
     ret
 UpdateUI ENDP
 
-; draw sandwatch
+; watch animation
 DrawSandwatch PROC
     ; Update animation frame (cycle through 4 frames)
     inc sandwatchFrame
@@ -643,7 +642,7 @@ DrawSandwatch PROC
     mov sandwatchFrame, 0
     FRAME_OK:
     
-    ; Draw sandwatch character in top right
+               ; Draw sandwatch character in top right
     mov eax, TEXT_COLOR
     call SetTextColor
     mov dh, 1
